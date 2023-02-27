@@ -1,0 +1,30 @@
+include ../$(IN)
+
+OPT_F77 = -O2 -fallow-argument-mismatch
+
+FILES_F77 = \
+            SB_opkda1.f \
+            SB_opkda2.f \
+            SB_opkdmain.f
+
+FILES = \
+        Simbim.f90 \
+        LAI_Hyy_month.f90 \
+        M2_canopy.f90 \
+        M2_LD_FCT.f90 \
+        M2_TEMPD_PRM.f90 \
+        M2_REL_EM_ACT.f90 \
+        M2_SPC_MGN.f90 \
+        M2_gamma_etc.f90 \
+        Megan_version_1.f90 \
+        Megan_version_2.f90
+
+$(LIB)/libmegan.a: $(FILES_F77) $(FILES)
+	$(LINK) $(OPT_F77) -c $(FILES_F77)  # For F77 files
+	$(LINK) $(OPT) -I. $(SYS_INCL) $(LIB_INCL) -c $(FILES)  # $?: names of prerequisites newer than the target
+	@ar rv $@ ${FILES_F77:.f=.o} ${FILES:.f90=.o}  # : syntax means replacing .f90 with .o in all the $? items
+	@ar ts $@
+	@rm -f *.o
+	@for i in *.mod; do \
+		mv $$i $(LIB); \
+	done

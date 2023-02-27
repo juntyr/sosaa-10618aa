@@ -1,0 +1,55 @@
+# A benchmark case for aerosol simulations
+
+##### You need to modify these variables first to make them fit your system
+SOSAA_ROOT = /users/pclusius/HydeCCN/appldir/GOS/sosaa
+CODE_DIR = $(SOSAA_ROOT)/src
+CHEMALL_DIR = $(SOSAA_ROOT)/chemistry
+CASE_DIR = /users/pclusius/HydeCCN/appldir/GOS/casedir
+
+ALT_NAME = SOSAA_ARCA.exe
+
+CHEM = sample_aerosol
+
+CASE = sample_aerosol
+
+INIT_FILE = $(SOSAA_ROOT)/examples/sosaa_sample_aerosol.init
+
+LIB := $(CODE_DIR)/LIB
+
+FC = gfortran
+MPIFC = mpifort
+
+LINK := $(MPIFC)
+
+##### Compiler flags
+# -cpp: enable preprocessing
+# -ffpe-trap=denormal: program will quit if e.g. 1e-158**2 is met in kpp code.
+# So do not use it. This may be fixed by KPP in future, hopefully.
+
+# Run parallel
+OPT_PARALLEL := -D PARALLEL
+
+# Set initial values
+OPT_INIT  = -finit-integer=0 -finit-real=zero
+
+# Basic flags
+OPT_BASE := -cpp -ffree-form -ffixed-line-length-none -ffree-line-length-none
+OPT_BASE += -fbacktrace -fbounds-check #-ffpe-trap=invalid,zero,overflow
+
+# Optimization
+OPT_DEBUG = -O0 -g
+OPT_RUN   = -O2
+
+# Final flag
+OPT := $(OPT_RUN) $(OPT_BASE) $(OPT_INIT) $(OPT_PARALLEL)
+
+# System include and library include
+SYS_INCL = -I/usr/include
+LIB_INCL = -I$(LIB)
+
+# NetCDF include and library
+NETCDF_INCL = -I$(NETCDF_FORTRAN_INSTALL_ROOT)/include
+NETCDF_LIBS = -L$(NETCDF_FORTRAN_INSTALL_ROOT)/lib -lnetcdff
+
+OP = -Wl,--start-group
+CL = -Wl,--end-group

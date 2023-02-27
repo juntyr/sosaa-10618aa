@@ -1,0 +1,15 @@
+include ../$(IN)
+
+FILES = \
+        gdd_parameter_mod.f90 \
+        gdd_variable_mod.f90 \
+        gdd_function_mod.f90
+
+$(LIB)/libdeposition.a: $(FILES)
+	$(LINK) $(OPT) -I. $(SYS_INCL) $(LIB_INCL) -c $?  # $?: names of prerequisites newer than the target
+	@ar rv $@ ${?:.f90=.o}  # : syntax means replacing .f90 with .o in all the $? items
+	@ar ts $@
+	@rm -f *.o
+	@for i in *.mod; do \
+		mv $$i $(LIB); \
+	done

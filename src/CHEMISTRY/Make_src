@@ -1,0 +1,40 @@
+include ../$(IN)
+
+FILES = \
+        filecount_mod.f90 \
+        second_Precision.f90 \
+        second_Parameters.f90 \
+        second_Global.f90 \
+        second_Initialize.f90 \
+        second_Monitor.f90 \
+        second_Util.f90 \
+        second_JacobianSP.f90 \
+        second_LinearAlgebra.f90 \
+        second_Jacobian.f90 \
+        second_Rates.f90 \
+        second_Function.f90 \
+        second_Integrator.f90 \
+        second_Model.f90 \
+        second_Main.f90 \
+        Chemistry_Mod.f90
+
+CHEM_LIB = $(CHEMALL_DIR)/$(CHEM)/LIB
+
+# Object files
+OBJ = $(patsubst %.f90, $(CHEM_LIB)/%.o, $(FILES))
+
+all: preprocess $(LIB)/libchemistry.a
+
+preprocess:
+	@mkdir -p $(CHEM_LIB)
+
+$(LIB)/libchemistry.a: $(OBJ)
+	@echo $(OBJ)
+	@ar rv $@ $(OBJ)
+	@cp -v $(CHEM_LIB)/*.mod $(LIB)
+
+# where to put '.mod' files
+# gcc: -J
+# ifort: -module
+$(CHEM_LIB)/%.o: $(CHEMALL_DIR)/$(CHEM)/%.f90
+	$(LINK) $(OPT) -I$(CHEM_LIB) -J$(CHEM_LIB) -c $^ -o $@

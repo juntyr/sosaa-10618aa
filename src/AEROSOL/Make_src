@@ -1,0 +1,23 @@
+include ../$(IN)
+
+FILES = \
+        multimodal_mod.f90 \
+        satconc_mod.f90 \
+        formatting.f90 \
+        indexfromname_mod.f90 \
+        filecount_mod.f90 \
+        psd_constants.f90 \
+        psd_scheme.f90 \
+        psd_aerosol_dynamics.f90 \
+        psd_interface.f90
+
+# $?: names of prerequisites newer than the target
+# : syntax means replacing .f90 with .o in all the $? items
+$(LIB)/libaerosol.a: $(FILES)
+	$(LINK) $(OPT) -I. $(SYS_INCL) $(LIB_INCL) -c $?
+	@ar rv $@ ${?:.f90=.o}
+	@ar ts $@
+	@rm -f *.o
+	@for i in *.mod; do \
+		mv $$i $(LIB); \
+	done

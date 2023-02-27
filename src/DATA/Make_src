@@ -1,0 +1,19 @@
+include ../$(IN)
+
+FILES = \
+        constants_mod.f90 \
+        tool_mod.f90 \
+        dios_mod.f90 \
+        traj_data_mod.f90 \
+        traj_proc_mod.f90 \
+        Sosa_data.f90 \
+        Sosa_io.f90
+
+$(LIB)/libdata.a: $(FILES)
+	$(LINK) $(OPT) -I. $(SYS_INCL) $(LIB_INCL) $(NETCDF_INCL) $(NETCDF_LIBS) -c $?  # $?: names of prerequisites newer than the target
+	@ar rv $@ ${?:.f90=.o}  # : syntax means replacing .f90 with .o in all the $? items
+	@ar ts $@
+	@rm -f *.o
+	@for i in *.mod; do \
+		mv $$i $(LIB); \
+	done

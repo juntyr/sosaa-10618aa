@@ -1,0 +1,37 @@
+# include ../$(IN)
+
+OPT_F77= -O2
+
+n_acdc = $(shell seq 5)
+
+ACDC_OPTS = -ffree-line-length-none -cpp -J$(OD)/$(BACDC) -I$(OD)/$(BACDC) -fcheck=all -ffpe-trap=invalid,zero,overflow -O3
+VPATH += :$(foreach n,$(n_acdc),ACDC_0$(n):)
+
+
+FILES_F77=\
+	solvers/dvode.f
+
+FILES_S = \
+	solvers/solution_settings.f90
+
+FILES = $(foreach n, $(n_acdc), \
+	ACDC_0$(n)/acdc_system_AN_ions_0x$(n).f90 \
+	ACDC_0$(n)/monomer_settings_acdc_NH3_ions_0x$(n).f90 \
+	ACDC_0$(n)/acdc_equations_AN_ions_0x$(n).f90 \
+	ACDC_0$(n)/driver_acdc_J_ions_0x$(n).f90\
+	ACDC_0$(n)/acdc_nh3_0x$(n).f90)
+
+
+$(LIB)/libacdc.a: $(FILES_F77) $(FILES_S) $(FILES)
+
+	$(LINK) $(OPT_F77) -c $(FILES_F77)
+	$(LINK) $(OPT) $(ACDC_OPTS) -I. $(SYS_INCL) $(LIB_INCL) -c ${notdir ${FILES:.f90=.o}}
+	@ar rv $@ ${notdir ${FILES:.f90=.o}}ACDC_OBJECTS
+	@ar ts $@
+	@rm -f *.o
+	@for i in *.mod; do \
+		mv $$i $(LIB); \
+	done
+
+all:
+	@echo ${FILES_F77} ${FILES_S} ${FILES}

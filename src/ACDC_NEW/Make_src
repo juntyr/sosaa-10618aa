@@ -1,0 +1,29 @@
+include ../$(IN)
+
+OPT_F77= -O2
+
+n_acdc = $(shell seq 5)
+
+FILES_F77=\
+	solvers/dvode.f
+
+FILES = \
+  solvers/solution_settings_new.f90 \
+  $(foreach n, $(n_acdc), \
+  ACDC_0$(n)/acdc_system_0x$(n).f90 \
+  ACDC_0$(n)/acdc_simulation_setup_0x$(n).f90 \
+	ACDC_0$(n)/acdc_equations_0x$(n).f90 \
+  ACDC_0$(n)/driver_acdc_J_0x$(n).f90 \
+  ACDC_0$(n)/get_acdc_J_0x$(n).f90 \
+  )
+
+$(LIB)/libacdc.a: $(FILES_F77) $(FILES_S) $(FILES)
+
+	$(LINK) $(OPT_F77) -c $(FILES_F77)
+	$(LINK) $(OPT) -I. $(SYS_INCL) $(LIB_INCL) -c $(FILES)
+	@ar rv $@ ${notdir ${FILES_F77:.f=.o}} ${notdir ${FILES:.f90=.o}}
+	@ar ts $@
+	@rm -f *.o
+	@for i in *.mod; do \
+		mv $$i $(LIB); \
+	done

@@ -1,0 +1,19 @@
+include ../$(IN)
+
+FILES = \
+        Scadis_Parameters.f90 \
+        Scadis_Initial.f90 \
+        Scadis_Data_Tools.f90 \
+        Scadis_Subroutines.f90 \
+        Scadis_Energy_Canopy.f90 \
+        Scadis_Radiation.f90 \
+        MT_MainMet.f90
+
+$(LIB)/libmeteorology.a: $(FILES)
+	$(LINK) $(OPT) -I. $(SYS_INCL) $(LIB_INCL) -c $?  # $?: names of prerequisites newer than the target
+	@ar rv $@ ${?:.f90=.o}  # : syntax means replacing .f90 with .o in all the $? items
+	@ar ts $@
+	@rm -f *.o
+	@for i in *.mod; do \
+		mv $$i $(LIB); \
+	done
