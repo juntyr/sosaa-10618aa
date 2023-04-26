@@ -1,0 +1,66 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: SOSAA
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Michael
+    family-names: Boy
+    email: michael.boy@helsinki.fi
+    affiliation: 'University of Helsinki, LUT University'
+    orcid: 'https://orcid.org/0000-0002-8107-4524'
+  - given-names: Dean
+    family-names: Chen
+    orcid: 'https://orcid.org/0000-0003-4667-0221'
+  - given-names: Petri
+    family-names: Clusius
+    email: petri.clusius@helsinki.fi
+    affiliation: University of Helsinki
+    orcid: 'https://orcid.org/0000-0003-3121-0775'
+  - given-names: Rosa
+    family-names: Gierens
+    orcid: 'https://orcid.org/0000-0002-3879-3099'
+  - given-names: Sampo
+    family-names: Smolander
+    orcid: 'https://orcid.org/0000-0003-4538-6384'
+  - given-names: Ditte
+    family-names: Taipale
+    orcid: 'https://orcid.org/0000-0002-2023-2461'
+  - given-names: Juniper
+    family-names: Tyree
+    affiliation: University of Helsinki
+    email: juniper.tyree@helsinki.fi
+    orcid: 'https://orcid.org/0000-0002-7923-9609'
+  - given-names: Luxi
+    family-names: Zhou
+    orcid: 'https://orcid.org/0000-0001-7364-741X'
+  - given-names: Putian
+    family-names: Zhou
+    orcid: 'https://orcid.org/0000-0003-0803-7337'
+    affiliation: University of Helsinki
+    email: putian.zhou@helsinki.fi
+identifiers:
+  - type: url
+    value: >-
+      https://github.com/juntyr/sosaa-10618aa/releases/tag/msc-tcm
+    description: >-
+      The GitHub release URL of version 1.0.0, the commit
+      submitted for the Master's Thesis.
+repository-code: 'https://github.com/juntyr/sosaa-10618aa'
+abstract: >-
+  The SOSAA model is a chemistry transport model that has
+  been actively developed in the Multi-Scale Modelling Group
+  at the University of Helsinki since 2011.
+keywords:
+  - sosaa
+  - model
+  - aerosol
+  - chemistry
+license: GPL-3.0
+commit: msc-tcm
+version: 10618aa
+date-released: '2023-04-26'
