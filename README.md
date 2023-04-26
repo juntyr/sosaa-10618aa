@@ -1,4 +1,7 @@
-# The SOSAA model, commit 10618aa [![License]][gpl-3.0]
+# The SOSAA model, commit 10618aa &emsp; [![DOI]][doi-url] [![License]][gpl-3.0]
+
+[DOI]: https://zenodo.org/badge/632784750.svg
+[doi-url]: https://doi.org/10.5281/zenodo.7867026
 
 [License]: https://img.shields.io/badge/License-GPL--3.0-blue.svg
 [gpl-3.0]: https://www.gnu.org/licenses/gpl-3.0.html

@@ -44,11 +44,14 @@ authors:
     affiliation: University of Helsinki
     email: putian.zhou@helsinki.fi
 identifiers:
+  - type: doi
+    value: 10.5281/zenodo.7867026
+    description: The Zenodo release
   - type: url
     value: >-
       https://github.com/juntyr/sosaa-10618aa/releases/tag/msc-tcm
     description: >-
-      The GitHub release URL of version 1.0.0, the commit
+      The GitHub release URL of version 10618aa, the commit
       submitted for the Master's Thesis.
 repository-code: 'https://github.com/juntyr/sosaa-10618aa'
 abstract: >-
